@@ -1,13 +1,9 @@
 package com.company.vogalstream;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.summingInt;
-import static java.util.stream.Collectors.toMap;
 
 public class Application {
 
@@ -18,6 +14,9 @@ public class Application {
     public static final Set<String> CONSONANTS_SET = new HashSet<>(asList(CONSONANTS));
 
     public static void main(String[] args) {
+
+        System.out.println("Enter the text:");
+
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();
 
