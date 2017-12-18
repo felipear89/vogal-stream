@@ -5,6 +5,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.summingInt;
+import static java.util.stream.Collectors.toMap;
 
 public class Application {
 
@@ -29,7 +32,11 @@ public class Application {
 
         char firstChar = firstChar(stream);
 
-        System.out.println("First vowel is: " + firstChar);
+        if (firstChar!= 0) {
+            System.out.println("First vowel is: " + firstChar);
+        } else {
+            System.out.println("Pattern not found");
+        }
 
 
     }
@@ -64,10 +71,10 @@ public class Application {
 
         Optional<Character> character = patternFound.entrySet().stream()
                 .map(pattern -> new AbstractMap.SimpleEntry<>(pattern.getKey().charAt(2), pattern.getValue())) // transform from "pattern" to one "vowel"
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())) // group by vowel and total found
+                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.summingInt(Map.Entry::getValue))) // group by vowel and total found
                 .entrySet().stream()
                 .filter(vowel -> vowel.getValue() == 1) // This vowel can't repeat
-                .map(m -> m.getKey().getKey()) // Get the one!
+                .map(Map.Entry::getKey) // Get the one!
                 .findAny();
 
         return character.orElseGet(() -> (char)0);
